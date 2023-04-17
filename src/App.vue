@@ -14,8 +14,10 @@ export default {
     };
   },
   mounted() {
+    store.loading = true;
     axios.get(store.apiURL).then((resp) => {
       this.store.cards = resp.data.data;
+      store.loading = false;
     });
   },
 };
