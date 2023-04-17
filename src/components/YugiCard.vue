@@ -8,8 +8,8 @@ export default {
 </script>
 
 <template>
-  <div class="text-center card">
-    <img :src="card.card_images.image_url_cropped" alt="" />
+  <div class="text-center card m-2">
+    <img :src="card.card_images[0].image_url_small" alt="" />
     <h4>{{ card.name }}</h4>
     <p>{{ card.archetype }}</p>
   </div>

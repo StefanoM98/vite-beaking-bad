@@ -38,10 +38,10 @@ export default {
 <style scoped lang="scss">
 .container {
   width: 100%;
-  height: calc(100vh - 70px);
+  height: 100%;
   background-color: #d48f38;
   .container-fluid {
-    height: 700px;
+    // height: 700px;
     background-color: white;
   }
 }
