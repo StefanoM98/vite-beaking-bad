@@ -21,9 +21,10 @@ export default {
     <div class="container p-4">
       <select class="form-select" aria-label="Default select example">
         <option selected>Scegli un archetipo</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option value="Alien">Alien</option>
+        <option value="Noble Knight">Noble Knight</option>
+        <option value="Melodious">Melodious</option>
+        <option value="Archfiend">Archfiend</option>
       </select>
 
       <div class="container-fluid p-5">

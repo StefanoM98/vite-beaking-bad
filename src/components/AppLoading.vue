@@ -6,7 +6,7 @@ export default {
 
 <template>
   <div class="loader">
-    <div class="text">{{ label }}</div>
+    <div class="text"></div>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
       <path d="M18 13 L26 2 8 13 14 19 6 30 24 19 Z" />
     </svg>
