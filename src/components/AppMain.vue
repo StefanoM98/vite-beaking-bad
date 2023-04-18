@@ -1,7 +1,8 @@
 <script>
-import YugiCard from "./YugiCard.vue";
 import { store } from "../store";
+import YugiCard from "./YugiCard.vue";
 import AppLoading from "./AppLoading.vue";
+import axios from "axios";
 export default {
   name: "AppMain",
   components: {
@@ -11,7 +12,39 @@ export default {
   data() {
     return {
       store,
+      selectedOptions: ["Alien", "Ally, of Justice", "Ancient Gear"],
+      cardsFounded: 0,
+      selectedArchetype: "",
     };
+  },
+  mounted() {
+    this.getCard();
+  },
+  methods: {
+    getArchetype() {
+      store.loading = true;
+      if (this.selectedArchetype) {
+        axios
+          .get(store.apiURL, {
+            params: {
+              archetype: this.selectedArchetype,
+            },
+          })
+          .then((resp) => {
+            this.store.cards = resp.data.data;
+            this.cardsFounded = resp.data.meta.current_rows;
+            store.loading = false;
+          });
+      } else {
+        this.getCard();
+      }
+    },
+    getCard() {
+      axios.get(store.apiURL).then((resp) => {
+        this.store.cards = resp.data.data;
+        this.cardsFounded = resp.data.meta.current_rows;
+      });
+    },
   },
 };
 </script>
@@ -19,16 +52,22 @@ export default {
 <template>
   <main>
     <div class="container p-4">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Scegli un archetipo</option>
-        <option value="Alien">Alien</option>
-        <option value="Noble Knight">Noble Knight</option>
-        <option value="Melodious">Melodious</option>
-        <option value="Archfiend">Archfiend</option>
-      </select>
-
       <div class="container-fluid p-5">
-        <h3 class="found p-2">Found 20 cards</h3>
+        <select
+          class="form-select"
+          name="option"
+          id="option"
+          v-model="selectedArchetype"
+          @change="getArchetype"
+        >
+          <option value="">All</option>
+          <option v-for="option in selectedOptions" :value="option">
+            {{ option }}
+          </option>
+        </select>
+        <h3 class="found p-2">
+          Founded <span>{{ cardsFounded }}</span> cards
+        </h3>
         <AppLoading v-if="store.loading" />
         <div class="row row-cols-5" v-else>
           <div class="col mb-3" v-for="card in store.cards">
